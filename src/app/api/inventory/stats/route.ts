@@ -1,39 +1,45 @@
 import { NextResponse } from 'next/server';
-import { getDb } from '@/lib/db';
 import { requireAdmin } from '@/lib/auth';
+import { supabase } from '@/lib/db';
 
 export async function GET() {
   try {
     await requireAdmin();
-    const db = await getDb();
-
-    const totalProducts = db.products.length;
-    const totalOrders = db.orders.length;
-    const lowStock = db.products.filter((p) => p.stock > 0 && p.stock <= 5).length;
-    const outOfStock = db.products.filter((p) => p.stock === 0).length;
 
     const now = new Date();
-    const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    const yesterdayStart = new Date(todayStart.getTime() - 86400000);
-    const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
-    const yearStart = new Date(now.getFullYear(), 0, 1);
+    const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate()).toISOString();
+    const yesterdayStart = new Date(todayStart).getTime() - 86400000;
+    const monthStart = new Date(now.getFullYear(), now.getMonth(), 1).toISOString();
+    const yearStart = new Date(now.getFullYear(), 0, 1).toISOString();
 
-    function incomeSince(date: Date): number {
-      return db.orders
-        .filter((o) => o.status !== 'cancelled' && new Date(o.createdAt) >= date)
-        .reduce((sum, o) => sum + o.total, 0);
-    }
+    const [productsRes, ordersRes, todayOrdersRes, monthOrdersRes] = await Promise.all([
+      supabase.from('products').select('stock'),
+      supabase.from('orders').select('total, status, createdAt'),
+      supabase.from('orders').select('id').gte('createdAt', todayStart),
+      supabase.from('orders').select('id').gte('createdAt', monthStart),
+    ]);
 
-    function countSince(date: Date): number {
-      return db.orders.filter((o) => new Date(o.createdAt) >= date).length;
+    const products = productsRes.data || [];
+    const orders = ordersRes.data || [];
+
+    const totalProducts = products.length;
+    const lowStock = products.filter((p: any) => p.stock > 0 && p.stock <= 5).length;
+    const outOfStock = products.filter((p: any) => p.stock === 0).length;
+
+    const todayOrders = todayOrdersRes.data?.length || 0;
+    const monthlyOrders = monthOrdersRes.data?.length || 0;
+
+    function incomeSince(dateStr: string): number {
+      return orders
+        .filter((o: any) => o.status !== 'cancelled' && o.createdAt >= dateStr)
+        .reduce((sum: number, o: any) => sum + Number(o.total), 0);
     }
 
     const todayIncome = incomeSince(todayStart);
-    const yesterdayIncome = incomeSince(yesterdayStart) - todayIncome;
+    const yesterdayIncome = incomeSince(new Date(yesterdayStart).toISOString()) - todayIncome;
     const monthlyIncome = incomeSince(monthStart);
     const yearlyIncome = incomeSince(yearStart);
-    const todayOrders = countSince(todayStart);
-    const monthlyOrders = countSince(monthStart);
+    const totalOrders = orders.length;
 
     return NextResponse.json({
       totalProducts,
