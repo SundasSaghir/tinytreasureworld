@@ -10,8 +10,8 @@ envContent.split('\n').forEach(line => {
 });
 async function main() {
   const admin = createClient(envVars.NEXT_PUBLIC_SUPABASE_URL, envVars.SUPABASE_SERVICE_KEY);
-  const { data, error } = await admin.from('reviews').select('*');
+  const { data, error } = await admin.from('settings').select('key,value').in('key', ['address', 'email', 'whatsapp_number', 'shop_name']);
   console.log('Error:', error?.message || 'none');
-  console.log('Reviews:', data?.length || 0, JSON.stringify(data));
+  console.log('Settings:', JSON.stringify(data));
 }
 main().catch(console.error);
