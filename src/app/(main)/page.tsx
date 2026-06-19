@@ -302,12 +302,12 @@ function ReviewsSection({ reviews }: { reviews: any[] }) {
         <div className="relative overflow-hidden">
           <div
             className="flex gap-3 transition-transform duration-700 ease-in-out"
-            style={{ transform: `translateX(-${offset * 230}px)` }}
+            style={{ transform: `translateX(-${offset * 208}px)` }}
           >
             {reviews.concat(reviews).map((review, index) => (
               <div
                 key={index}
-                className="min-w-[210px] sm:min-w-[220px] bg-white/60 backdrop-blur-md border border-white/40 rounded-2xl p-4 shadow-lg shadow-[#d4869c]/5 shrink-0"
+                className="w-[190px] sm:w-[200px] bg-white/60 backdrop-blur-md border border-white/40 rounded-2xl p-3 shadow-lg shadow-[#d4869c]/5 shrink-0"
               >
                 <div className="flex gap-1 mb-2">
                   {Array.from({ length: review.rating || 5 }).map((_, i) => (
