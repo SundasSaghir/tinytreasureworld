@@ -1,29 +1,12 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { MapPin, Phone, Mail, MessageCircle, Send } from 'lucide-react';
 
 export default function ContactPage() {
   const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [address, setAddress] = useState('');
-  const [whatsapp, setWhatsapp] = useState('');
-  const [siteEmail, setSiteEmail] = useState('');
-
-  useEffect(() => {
-    fetch('/api/settings')
-      .then(r => r.json())
-      .then((data: any[]) => {
-        const getVal = (key: string) => data.find((s: any) => s.key === key)?.value || ''
-        setAddress(getVal('address'))
-        setSiteEmail(getVal('email'))
-        let num = getVal('whatsapp_number').replace(/[^0-9]/g, '')
-        if (num.startsWith('0')) num = '92' + num.slice(1)
-        if (num && !num.startsWith('92')) num = '92' + num
-        setWhatsapp(num)
-      })
-  }, [])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -143,7 +126,7 @@ export default function ContactPage() {
               <MapPin size={20} className="text-[#d48e66] mt-0.5 flex-shrink-0" />
               <div>
                 <p className="font-medium text-[#4a3730]">Address</p>
-                <p className="text-sm text-[#6a5a4e]">{address || '123 Kids Lane, Suite 100, New York, NY 10001'}</p>
+                <p className="text-sm text-[#6a5a4e]">123 Kids Lane, Suite 100, New York, NY 10001</p>
               </div>
             </div>
 
@@ -151,8 +134,8 @@ export default function ContactPage() {
               <Phone size={20} className="text-[#d48e66] mt-0.5 flex-shrink-0" />
               <div>
                 <p className="font-medium text-[#4a3730]">Phone</p>
-                <a href={`tel:+${whatsapp}`} className="text-sm text-[#d48e66] hover:underline">
-                  {whatsapp ? `+${whatsapp}` : '+1 (234) 567-890'}
+                <a href="tel:+1234567890" className="text-sm text-[#d48e66] hover:underline">
+                  +1 (234) 567-890
                 </a>
               </div>
             </div>
@@ -161,8 +144,8 @@ export default function ContactPage() {
               <Mail size={20} className="text-[#d48e66] mt-0.5 flex-shrink-0" />
               <div>
                 <p className="font-medium text-[#4a3730]">Email</p>
-                <a href={`mailto:${siteEmail || 'info@tinytreasureworld.com'}`} className="text-sm text-[#d48e66] hover:underline">
-                  {siteEmail || 'info@tinytreasureworld.com'}
+                <a href="mailto:info@tinytreasureworld.com" className="text-sm text-[#d48e66] hover:underline">
+                  info@tinytreasureworld.com
                 </a>
               </div>
             </div>
@@ -172,7 +155,7 @@ export default function ContactPage() {
               <div>
                 <p className="font-medium text-[#4a3730]">WhatsApp</p>
                 <a
-                  href={`https://wa.me/${whatsapp || '923001234567'}`}
+                  href="https://wa.me/923001234567"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-sm text-green-500 hover:underline"
