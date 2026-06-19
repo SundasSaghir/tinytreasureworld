@@ -3,7 +3,7 @@
 import { useRouter, usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { LayoutDashboard, Package, Tags, ShoppingBag, Settings, DollarSign, FileText, ImageIcon, Star, FileEdit, LogOut, Menu, X } from 'lucide-react'
+import { LayoutDashboard, Package, Tags, ShoppingBag, Settings, DollarSign, FileText, ImageIcon, Star, FileEdit, LogOut, Menu, X, MessageSquare } from 'lucide-react'
 
 const navLinks = [
   { href: '/admin/dashboard', label: 'Dashboard', icon: LayoutDashboard },
@@ -13,6 +13,7 @@ const navLinks = [
   { href: '/admin/pages', label: 'Pages', icon: FileEdit },
   { href: '/admin/reviews', label: 'Reviews', icon: Star },
   { href: '/admin/orders', label: 'Orders', icon: ShoppingBag },
+  { href: '/admin/messages', label: 'Messages', icon: MessageSquare },
   { href: '/admin/income', label: 'Income', icon: DollarSign },
   { href: '/admin/invoices', label: 'Invoices', icon: FileText },
   { href: '/admin/settings', label: 'Settings', icon: Settings },
