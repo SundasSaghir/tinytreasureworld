@@ -1,0 +1,83 @@
+-- Tiny Treasure World - Supabase Migration
+-- Run this in Supabase SQL Editor
+
+CREATE TABLE products (
+  id TEXT PRIMARY KEY,
+  name TEXT NOT NULL,
+  slug TEXT NOT NULL,
+  category TEXT NOT NULL DEFAULT '',
+  description TEXT NOT NULL DEFAULT '',
+  price NUMERIC NOT NULL DEFAULT 0,
+  "salePrice" NUMERIC DEFAULT NULL,
+  stock INTEGER NOT NULL DEFAULT 0,
+  sku TEXT NOT NULL DEFAULT '',
+  images TEXT[] NOT NULL DEFAULT '{}',
+  featured BOOLEAN NOT NULL DEFAULT false,
+  "bestSeller" BOOLEAN NOT NULL DEFAULT false,
+  status TEXT NOT NULL DEFAULT 'active',
+  "createdAt" TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE categories (
+  id TEXT PRIMARY KEY,
+  name TEXT NOT NULL,
+  slug TEXT NOT NULL,
+  image TEXT NOT NULL DEFAULT '',
+  "order" INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE orders (
+  id TEXT PRIMARY KEY,
+  "customerName" TEXT NOT NULL DEFAULT '',
+  phone TEXT NOT NULL DEFAULT '',
+  city TEXT NOT NULL DEFAULT '',
+  address TEXT NOT NULL DEFAULT '',
+  notes TEXT NOT NULL DEFAULT '',
+  items JSONB NOT NULL DEFAULT '[]',
+  total NUMERIC NOT NULL DEFAULT 0,
+  status TEXT NOT NULL DEFAULT 'pending',
+  "createdAt" TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE banners (
+  id TEXT PRIMARY KEY,
+  title TEXT NOT NULL DEFAULT '',
+  subtitle TEXT NOT NULL DEFAULT '',
+  image TEXT NOT NULL DEFAULT '',
+  link TEXT NOT NULL DEFAULT '',
+  active BOOLEAN NOT NULL DEFAULT true,
+  "order" INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE reviews (
+  id TEXT PRIMARY KEY,
+  name TEXT NOT NULL DEFAULT '',
+  rating INTEGER NOT NULL DEFAULT 5,
+  comment TEXT NOT NULL DEFAULT '',
+  "productId" TEXT DEFAULT NULL,
+  active BOOLEAN NOT NULL DEFAULT true,
+  "createdAt" TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE coupons (
+  id TEXT PRIMARY KEY,
+  code TEXT NOT NULL DEFAULT '',
+  discount NUMERIC NOT NULL DEFAULT 0,
+  type TEXT NOT NULL DEFAULT 'percentage',
+  "minAmount" NUMERIC NOT NULL DEFAULT 0,
+  active BOOLEAN NOT NULL DEFAULT true,
+  "expiresAt" TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE settings (
+  key TEXT PRIMARY KEY,
+  value TEXT NOT NULL DEFAULT ''
+);
+
+CREATE TABLE admin (
+  username TEXT PRIMARY KEY,
+  password TEXT NOT NULL DEFAULT ''
+);
+
+INSERT INTO admin (username, password) VALUES ('admin', '$2b$10$T9cDmvw.1pbRFxMkFj2lB.KP6COemXOWFV1mi0w52kLkSWmdJL9eO')
+ON CONFLICT (username) DO NOTHING;

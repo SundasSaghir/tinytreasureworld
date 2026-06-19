@@ -1,0 +1,546 @@
+{
+  "admin": {
+    "username": "admin",
+    "password": "$2b$10$T9cDmvw.1pbRFxMkFj2lB.KP6COemXOWFV1mi0w52kLkSWmdJL9eO"
+  },
+  "categories": [
+    {
+      "id": "cat1",
+      "name": "Hair Accessories",
+      "slug": "hair-accessories",
+      "image": "/images/categories/hair.jpg",
+      "order": 1
+    },
+    {
+      "id": "cat2",
+      "name": "Baby Accessories",
+      "slug": "baby-accessories",
+      "image": "/images/categories/baby.jpg",
+      "order": 2
+    },
+    {
+      "id": "cat3",
+      "name": "School Accessories",
+      "slug": "school-accessories",
+      "image": "/images/categories/school.jpg",
+      "order": 3
+    },
+    {
+      "id": "cat4",
+      "name": "Toys",
+      "slug": "toys",
+      "image": "/images/categories/toys.jpg",
+      "order": 4
+    },
+    {
+      "id": "cat5",
+      "name": "Gift Items",
+      "slug": "gift-items",
+      "image": "/images/categories/gifts.jpg",
+      "order": 5
+    }
+  ],
+  "products": [
+    {
+      "id": "prod1",
+      "name": "Baby Girl Hair Bow Set",
+      "slug": "baby-girl-hair-bow-set",
+      "category": "hair-accessories",
+      "description": "Beautiful set of 6 handmade hair bows for baby girls. Made with soft, gentle materials perfect for delicate hair. Available in assorted pastel colors.",
+      "price": 499,
+      "salePrice": 399,
+      "stock": 24,
+      "sku": "HB-001",
+      "images": [
+        "/images/products/placeholder.svg"
+      ],
+      "featured": true,
+      "bestSeller": true,
+      "status": "active",
+      "createdAt": "2026-06-17T05:45:08.095Z"
+    },
+    {
+      "id": "prod2",
+      "name": "Princess Hair Clips Set",
+      "slug": "princess-hair-clips-set",
+      "category": "Hair Accessories",
+      "description": "Set of 10 princess-themed hair clips with sparkling gems. Perfect for parties and daily wear.",
+      "price": 349,
+      "salePrice": null,
+      "stock": 15,
+      "sku": "HC-002",
+      "images": [
+        "/uploads/1781681527751-jjz3s0.jpg"
+      ],
+      "featured": true,
+      "bestSeller": true,
+      "status": "active",
+      "createdAt": "2026-06-17T05:45:08.096Z"
+    },
+    {
+      "id": "prod3",
+      "name": "Baby Soft Soled Shoes",
+      "slug": "baby-soft-soled-shoes",
+      "category": "Baby Accessories",
+      "description": "Handcrafted soft soled shoes for newborns and infants. Made with breathable cotton fabric. Non-slip sole for safety.",
+      "price": 699,
+      "salePrice": 599,
+      "stock": 16,
+      "sku": "BS-003",
+      "images": [
+        "/uploads/1781681793426-14fmqg.jpg"
+      ],
+      "featured": true,
+      "bestSeller": false,
+      "status": "active",
+      "createdAt": "2026-06-17T05:45:08.096Z"
+    },
+    {
+      "id": "prod4",
+      "name": "Kids Backpack - Dinosaur",
+      "slug": "kids-backpack-dinosaur",
+      "category": "Baby Accessories",
+      "description": "Adorable dinosaur-shaped backpack for kids. Lightweight with padded straps. Main compartment with front zipper pocket.",
+      "price": 3000,
+      "salePrice": 2800,
+      "stock": 9,
+      "sku": "BP-004",
+      "images": [
+        "/uploads/1781681950308-m5pznz.jpg"
+      ],
+      "featured": true,
+      "bestSeller": true,
+      "status": "active",
+      "createdAt": "2026-06-17T05:45:08.096Z"
+    },
+    {
+      "id": "prod5",
+      "name": "Educational Building Blocks",
+      "slug": "educational-building-blocks",
+      "category": "Toys",
+      "description": "100-piece colorful building blocks set. Helps develop motor skills and creativity. Made from non-toxic materials.",
+      "price": 899,
+      "salePrice": 749,
+      "stock": 29,
+      "sku": "TB-005",
+      "images": [
+        "/uploads/1781682056998-xwicfx.jpg"
+      ],
+      "featured": false,
+      "bestSeller": true,
+      "status": "active",
+      "createdAt": "2026-06-17T05:45:08.096Z"
+    },
+    {
+      "id": "prod6",
+      "name": "Baby Gift Hamper",
+      "slug": "baby-gift-hamper",
+      "category": "Baby Accessories",
+      "description": "Complete baby gift hamper including soft toy, rattle, bib, and booties. Beautifully packaged in a gift box.",
+      "price": 1999,
+      "salePrice": 0,
+      "stock": 8,
+      "sku": "GH-006",
+      "images": [
+        "/uploads/1781682964688-o2718f.jpg"
+      ],
+      "featured": true,
+      "bestSeller": false,
+      "status": "active",
+      "createdAt": "2026-06-17T05:45:08.096Z"
+    },
+    {
+      "id": "prod7",
+      "name": "Kids Sunglasses - Butterfly",
+      "slug": "kids-sunglasses-butterfly",
+      "category": "Baby Accessories",
+      "description": "Stylish butterfly-shaped sunglasses for kids. UV400 protection. Flexible and durable frame.",
+      "price": 500,
+      "salePrice": 300,
+      "stock": 0,
+      "sku": "KS-007",
+      "images": [
+        "/uploads/1781755172867-jimjor.jpg"
+      ],
+      "featured": false,
+      "bestSeller": false,
+      "status": "active",
+      "createdAt": "2026-06-17T05:45:08.096Z"
+    },
+    {
+      "id": "prod8",
+      "name": "Pencil Case - Unicorn",
+      "slug": "pencil-case-unicorn",
+      "category": "school-accessories",
+      "description": "Magical unicorn pencil case with multiple compartments. Holds up to 40 pens and pencils.",
+      "price": 549,
+      "salePrice": 449,
+      "stock": 4,
+      "sku": "PC-008",
+      "images": [
+        "/images/products/placeholder.svg"
+      ],
+      "featured": false,
+      "bestSeller": true,
+      "status": "active",
+      "createdAt": "2026-06-17T05:45:08.096Z"
+    },
+    {
+      "id": "prod9",
+      "name": "Soft Plush Teddy Bear",
+      "slug": "soft-plush-teddy-bear",
+      "category": "toys",
+      "description": "Extra soft cuddly teddy bear. Made from premium plush material. Machine washable. Perfect gift for any occasion.",
+      "price": 799,
+      "salePrice": null,
+      "stock": 0,
+      "sku": "TB-009",
+      "images": [
+        "/images/products/placeholder.svg"
+      ],
+      "featured": false,
+      "bestSeller": false,
+      "status": "active",
+      "createdAt": "2026-06-17T05:45:08.096Z"
+    },
+    {
+      "id": "prod10",
+      "name": "Personalized Name Bracelet",
+      "slug": "personalized-name-bracelet",
+      "category": "gift-items",
+      "description": "Custom name bracelet for kids. Available in gold, silver, and rose gold. Adjustable length.",
+      "price": 599,
+      "salePrice": 499,
+      "stock": 11,
+      "sku": "GB-010",
+      "images": [
+        "/images/products/placeholder.svg"
+      ],
+      "featured": true,
+      "bestSeller": false,
+      "status": "active",
+      "createdAt": "2026-06-17T05:45:08.096Z"
+    },
+    {
+      "id": "prod11",
+      "name": "Hair Bands - Rainbow Set",
+      "slug": "hair-bands-rainbow-set",
+      "category": "hair-accessories",
+      "description": "Set of 12 colorful hair bands. No-metal design, gentle on hair. Perfect for active kids.",
+      "price": 249,
+      "salePrice": 199,
+      "stock": 49,
+      "sku": "HB-011",
+      "images": [
+        "/images/products/placeholder.svg"
+      ],
+      "featured": false,
+      "bestSeller": false,
+      "status": "active",
+      "createdAt": "2026-06-17T05:45:08.096Z"
+    },
+    {
+      "id": "prod12",
+      "name": "Kids Lunch Box - Cartoon",
+      "slug": "kids-lunch-box-cartoon",
+      "category": "school-accessories",
+      "description": "BPA-free lunch box with cute cartoon design. Leak-proof with separate compartments.",
+      "price": 849,
+      "salePrice": null,
+      "stock": 7,
+      "sku": "LB-012",
+      "images": [
+        "/images/products/placeholder.svg"
+      ],
+      "featured": false,
+      "bestSeller": false,
+      "status": "active",
+      "createdAt": "2026-06-17T05:45:08.096Z"
+    },
+    {
+      "id": "mqjhbziaufsfj",
+      "name": "Hair Clip",
+      "slug": "hair-clip",
+      "category": "Hair Accessories",
+      "description": "hiar",
+      "price": 345,
+      "salePrice": 300,
+      "stock": 30,
+      "sku": "HA-H-9204",
+      "images": [
+        "/uploads/1781785918893-com2pe.jpg"
+      ],
+      "featured": false,
+      "bestSeller": false,
+      "status": "active",
+      "createdAt": "2026-06-18T12:32:00.898Z"
+    }
+  ],
+  "orders": [
+    {
+      "id": "mqhqnc28lr7q8",
+      "customerName": "Sundas Saghir",
+      "phone": "03433017859",
+      "city": "Karachi",
+      "address": "Karchi hose 1502 dubai complax",
+      "notes": "",
+      "items": [
+        {
+          "productId": "prod10",
+          "name": "Personalized Name Bracelet",
+          "price": 499,
+          "quantity": 1
+        },
+        {
+          "productId": "prod1",
+          "name": "Baby Girl Hair Bow Set",
+          "price": 399,
+          "quantity": 1
+        },
+        {
+          "productId": "prod5",
+          "name": "Educational Building Blocks",
+          "price": 749,
+          "quantity": 1
+        }
+      ],
+      "total": 1647,
+      "status": "delivered",
+      "createdAt": "2026-06-17T07:17:14.576Z"
+    },
+    {
+      "id": "mqhqqyqog179l",
+      "customerName": "Sundsas ",
+      "phone": "03433017848",
+      "city": "Karchi",
+      "address": "karchi 1509 dubai complex city gulshan",
+      "notes": "",
+      "items": [
+        {
+          "productId": "prod3",
+          "name": "Baby Soft Soled Shoes",
+          "price": 599,
+          "quantity": 1
+        },
+        {
+          "productId": "prod7",
+          "name": "Kids Sunglasses - Butterfly",
+          "price": 449,
+          "quantity": 1
+        },
+        {
+          "productId": "prod8",
+          "name": "Pencil Case - Unicorn",
+          "price": 449,
+          "quantity": 1
+        }
+      ],
+      "total": 1497,
+      "status": "delivered",
+      "createdAt": "2026-06-17T07:20:03.936Z"
+    },
+    {
+      "id": "mqhqv5k8wsufo",
+      "customerName": "Sundas",
+      "phone": "03433012478",
+      "city": "karacho",
+      "address": "karchi, dubai complex, 215202 gulshan",
+      "notes": "",
+      "items": [
+        {
+          "productId": "prod3",
+          "name": "Baby Soft Soled Shoes",
+          "price": 599,
+          "quantity": 2
+        },
+        {
+          "productId": "prod7",
+          "name": "Kids Sunglasses - Butterfly",
+          "price": 449,
+          "quantity": 1
+        },
+        {
+          "productId": "prod11",
+          "name": "Hair Bands - Rainbow Set",
+          "price": 199,
+          "quantity": 1
+        }
+      ],
+      "total": 1846,
+      "status": "delivered",
+      "createdAt": "2026-06-17T07:23:19.400Z"
+    },
+    {
+      "id": "mqj08kbiijiff",
+      "customerName": "Samra",
+      "phone": "034333017807",
+      "city": "karachi",
+      "address": "Address: karchi, dubai complex, 215202 gulshan",
+      "notes": "",
+      "items": [
+        {
+          "productId": "prod3",
+          "name": "Baby Soft Soled Shoes",
+          "price": 599,
+          "quantity": 1
+        },
+        {
+          "productId": "prod7",
+          "name": "Kids Sunglasses - Butterfly",
+          "price": 300,
+          "quantity": 1
+        },
+        {
+          "productId": "prod4",
+          "name": "Kids Backpack - Dinosaur",
+          "price": 2800,
+          "quantity": 1
+        }
+      ],
+      "total": 3699,
+      "status": "pending",
+      "createdAt": "2026-06-18T04:33:27.774Z"
+    }
+  ],
+  "banners": [
+    {
+      "id": "banner1",
+      "title": "New Collection Arrived!",
+      "subtitle": "Explore our latest kids accessories collection",
+      "image": "/uploads/1781755009605-vk38yu.jpg",
+      "link": "/shop",
+      "active": true,
+      "order": 1
+    },
+    {
+      "id": "banner2",
+      "title": "Back to School Sale",
+      "subtitle": "Up to 40% off on school accessories",
+      "image": "/uploads/1781755033329-varfho.jpeg",
+      "link": "/shop?category=school-accessories",
+      "active": true,
+      "order": 2
+    }
+  ],
+  "reviews": [
+    {
+      "id": "rev1",
+      "name": "Ayesha Khan",
+      "rating": 5,
+      "comment": "Amazing quality products! My daughter loves the hair bows. Fast delivery too!",
+      "productId": null,
+      "active": true,
+      "createdAt": "2026-06-17T05:45:08.096Z"
+    },
+    {
+      "id": "rev2",
+      "name": "Saima Ali",
+      "rating": 4,
+      "comment": "Great selection of kids accessories. The backpack is very durable.",
+      "productId": null,
+      "active": true,
+      "createdAt": "2026-06-17T05:45:08.096Z"
+    },
+    {
+      "id": "rev3",
+      "name": "Fatima Ahmed",
+      "rating": 5,
+      "comment": "Beautiful gift hamper. Perfect for newborn baby. Highly recommended!",
+      "productId": null,
+      "active": true,
+      "createdAt": "2026-06-17T05:45:08.096Z"
+    },
+    {
+      "id": "rev4",
+      "name": "Zara Hussain",
+      "rating": 5,
+      "comment": "Very affordable prices and excellent customer service. Will order again!",
+      "productId": null,
+      "active": true,
+      "createdAt": "2026-06-17T05:45:08.096Z"
+    },
+    {
+      "id": "mqj09eqin25kz",
+      "name": "Samra",
+      "rating": 5,
+      "comment": "Good products",
+      "productId": null,
+      "active": true,
+      "createdAt": "2026-06-18T04:34:07.194Z"
+    }
+  ],
+  "coupons": [
+    {
+      "id": "cpn1",
+      "code": "WELCOME10",
+      "discount": 10,
+      "type": "percentage",
+      "minAmount": 1000,
+      "active": true,
+      "expiresAt": "2026-07-17T05:45:08.096Z"
+    },
+    {
+      "id": "cpn2",
+      "code": "FLAT200",
+      "discount": 200,
+      "type": "fixed",
+      "minAmount": 1500,
+      "active": true,
+      "expiresAt": "2026-07-17T05:45:08.096Z"
+    }
+  ],
+  "settings": [
+    {
+      "key": "shop_name",
+      "value": "Tiny Treasure World"
+    },
+    {
+      "key": "shop_description",
+      "value": "Premium Kids Accessories - Hair Accessories, Baby Items, School Supplies, Toys & Gifts"
+    },
+    {
+      "key": "whatsapp_number",
+      "value": "923433017809"
+    },
+    {
+      "key": "email",
+      "value": "info@tinytreasureworld.com"
+    },
+    {
+      "key": "currency",
+      "value": "Rs"
+    },
+    {
+      "key": "free_shipping_min",
+      "value": "2000"
+    },
+    {
+      "key": "delivery_charge",
+      "value": "200"
+    },
+    {
+      "key": "address",
+      "value": "Shop #5, Kids Fashion Mall, Main Boulevard, Lahore"
+    },
+    {
+      "key": "flash_sale_enabled",
+      "value": "true"
+    },
+    {
+      "key": "flash_sale_end",
+      "value": "2026-06-20T23:59"
+    },
+    {
+      "key": "facebook_url",
+      "value": "https://facebook.com"
+    },
+    {
+      "key": "instagram_url",
+      "value": "https://instagram.com"
+    },
+    {
+      "key": "tiktok_url",
+      "value": "https://tiktok.com/@tinytreasureworld"
+    }
+  ]
+}
