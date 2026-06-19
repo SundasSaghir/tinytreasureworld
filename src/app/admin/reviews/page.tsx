@@ -60,7 +60,6 @@ export default function AdminReviewsPage() {
       if (res.ok) {
         const newReview = await res.json()
         setReviews((prev) => [newReview, ...prev])
-        setShowForm(false)
         setFormName('')
         setFormRating(5)
         setFormComment('')
