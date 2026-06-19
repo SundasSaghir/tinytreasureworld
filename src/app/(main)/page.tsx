@@ -301,23 +301,23 @@ function ReviewsSection({ reviews }: { reviews: any[] }) {
         </div>
         <div className="relative overflow-hidden">
           <div
-            className="flex gap-4 transition-transform duration-700 ease-in-out"
-            style={{ transform: `translateX(-${offset * 280}px)` }}
+            className="flex gap-3 transition-transform duration-700 ease-in-out"
+            style={{ transform: `translateX(-${offset * 230}px)` }}
           >
             {reviews.concat(reviews).map((review, index) => (
               <div
                 key={index}
-                className="min-w-[260px] sm:min-w-[270px] bg-white/60 backdrop-blur-md border border-white/40 rounded-2xl p-5 shadow-lg shadow-[#d4869c]/5 shrink-0"
+                className="min-w-[210px] sm:min-w-[220px] bg-white/60 backdrop-blur-md border border-white/40 rounded-2xl p-4 shadow-lg shadow-[#d4869c]/5 shrink-0"
               >
-                <div className="flex gap-1 mb-3">
+                <div className="flex gap-1 mb-2">
                   {Array.from({ length: review.rating || 5 }).map((_, i) => (
-                    <Star key={i} size={14} className="text-yellow-400 fill-yellow-400" />
+                    <Star key={i} size={12} className="text-yellow-400 fill-yellow-400" />
                   ))}
                 </div>
-                <p className="text-[#6a5a4e] text-sm leading-relaxed mb-3 italic line-clamp-3">
+                <p className="text-[#6a5a4e] text-xs leading-relaxed mb-2 italic line-clamp-2">
                   &ldquo;{review.comment}&rdquo;
                 </p>
-                <p className="font-semibold text-[#4a3730] text-sm">- {review.name}</p>
+                <p className="font-semibold text-[#4a3730] text-xs">- {review.name}</p>
               </div>
             ))}
           </div>
