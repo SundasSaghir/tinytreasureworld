@@ -119,12 +119,13 @@ export default function AdminProductFormPage() {
     try {
       const fd = new FormData()
       fd.append('file', file)
-      const res = await fetch('/api/upload', { method: 'POST', body: fd })
+      const res = await fetch('/api/upload', { method: 'POST', body: fd, credentials: 'include' })
       if (res.ok) {
         const data = await res.json()
         setForm((prev) => ({ ...prev, images: [...prev.images, data.url] }))
       } else {
-        setError('Image upload failed. Make sure you are logged in.')
+        const data = await res.json()
+        setError(data.error || 'Image upload failed')
       }
     } catch {
       setError('Image upload failed. Please try again.')

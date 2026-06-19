@@ -1,14 +1,15 @@
 const https = require('https');
-https.get('https://tinytreasureworld.netlify.app', r => {
+https.get('https://tinytreasureworld.netlify.app', { headers: { 'Cache-Control': 'no-cache' } }, r => {
   let d = '';
   r.on('data', c => d += c);
   r.on('end', () => {
-    console.log('Page length:', d.length);
-    console.log('Logo in HTML:', d.includes('logo.png') ? 'YES' : 'NO');
-    const imgs = d.match(/<img[^>]+src="[^"]+"[^>]*>/gi) || [];
-    console.log('Images found:', imgs.length);
-    imgs.forEach(img => console.log(' -', img.replace(/<img[^>]+src="/, '').replace(/"[^>]*>/, '').slice(0, 60)));
-    const prodItems = d.match(/\/products\/[^"]+/g) || [];
-    console.log('Product links:', prodItems.length);
+    const hasDirectLogo = d.includes('src="/logo.png"');
+    const hasNoNextImage = !d.includes('_next/image');
+    const supabaseRef = d.includes('supabase.co');
+    console.log('Logo via direct img tag:', hasDirectLogo);
+    console.log('No next/image proxy:', hasNoNextImage);
+    console.log('Has supabase reference:', supabaseRef);
+    console.log('');
+    console.log('Site is deployed correctly:', hasDirectLogo && hasNoNextImage ? 'YES' : 'NEED FIX');
   });
 });

@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
         upsert: true,
       });
 
-    if (error) throw error;
+    if (error) throw new Error(error.message);
 
     const { data: { publicUrl } } = supabaseAdmin.storage
       .from('product-images')
@@ -32,8 +32,9 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ url: publicUrl });
   } catch (error) {
     if (error instanceof Error && error.message === 'Unauthorized') {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+      return NextResponse.json({ error: 'Please login again' }, { status: 401 });
     }
-    return NextResponse.json({ error: 'Failed to upload' }, { status: 500 });
+    const msg = error instanceof Error ? error.message : 'Failed to upload';
+    return NextResponse.json({ error: msg }, { status: 500 });
   }
 }
