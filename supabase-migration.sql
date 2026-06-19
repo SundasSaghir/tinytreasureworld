@@ -79,5 +79,5 @@ CREATE TABLE admin (
   password TEXT NOT NULL DEFAULT ''
 );
 
-INSERT INTO admin (username, password) VALUES ('admin', '$2b$10$T9cDmvw.1pbRFxMkFj2lB.KP6COemXOWFV1mi0w52kLkSWmdJL9eO')
+INSERT INTO admin (username, password) VALUES ('admin', '$2b$10$qzzTewx/M8o557kD6ZXO.uuWJGLmtDGQznUEDHZ8Z/30rth8jYvxq')
 ON CONFLICT (username) DO NOTHING;
