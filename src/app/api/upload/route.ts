@@ -1,10 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { requireAdmin } from '@/lib/auth';
+import { verifyToken } from '@/lib/auth';
 import { supabaseAdmin } from '@/lib/db';
 
 export async function POST(request: NextRequest) {
   try {
-    await requireAdmin();
+    const token = request.cookies.get('admin_token')?.value;
+    if (!token || !(await verifyToken(token))) {
+      return NextResponse.json({ error: 'Please login again' }, { status: 401 });
+    }
     const formData = await request.formData();
     const file = formData.get('file') as File | null;
 
