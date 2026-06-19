@@ -13,19 +13,10 @@ envContent.split('\n').forEach(line => {
 });
 
 async function main() {
-  const supabaseUrl = envVars.NEXT_PUBLIC_SUPABASE_URL;
-  const supabaseServiceKey = envVars.SUPABASE_SERVICE_KEY;
-  const admin = createClient(supabaseUrl, supabaseServiceKey);
-
-  // Check what's in orders
-  const { data: orders, error: oErr } = await admin.from('orders').select('id,status,total');
-  if (oErr) console.log('Orders error:', oErr.message);
-  else console.log('Orders:', JSON.stringify(orders));
-
-  // Check what's in settings (for income data)
-  const { data: settings, error: sErr } = await admin.from('settings').select('*');
-  if (sErr) console.log('Settings error:', sErr.message);
-  else console.log('Settings:', JSON.stringify(settings));
+  const admin = createClient(envVars.NEXT_PUBLIC_SUPABASE_URL, envVars.SUPABASE_SERVICE_KEY);
+  const { data, error } = await admin.from('reviews').select('*');
+  if (error) console.log('Error:', error.message);
+  else console.log('Reviews:', JSON.stringify(data, null, 2));
 }
 
 main().catch(console.error);
