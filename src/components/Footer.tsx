@@ -139,27 +139,26 @@ export default function Footer() {
 
           <div>
             <h4 className="font-semibold text-[#4a3730] mb-4">Quick Links</h4>
-            <ul className="space-y-3">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-4 gap-y-2">
               {[
                 { label: 'Home', href: '/' },
-                { label: 'Shop', href: '/shop' },
-                { label: 'Reviews', href: '/reviews' },
-                { label: 'About Us', href: '/about' },
-                { label: 'Wishlist', href: '/wishlist' },
-                { label: 'Returns & Refunds', href: '/returns' },
+                { label: 'About', href: '/about' },
                 { label: 'Contact', href: '/contact' },
                 { label: 'FAQ', href: '/faq' },
+                { label: 'Shop', href: '/shop' },
+                { label: 'Reviews', href: '/reviews' },
+                { label: 'Refund Policy', href: '/returns' },
+                { label: 'Wishlist', href: '/wishlist' },
               ].map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-[#6a5a4e] hover:text-[#d4869c] text-sm transition-colors"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="text-[#6a5a4e] hover:text-[#d4869c] text-sm transition-colors"
+                >
+                  {link.label}
+                </Link>
               ))}
-            </ul>
+            </div>
           </div>
 
           <div>
