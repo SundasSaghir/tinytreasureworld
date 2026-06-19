@@ -139,15 +139,15 @@ export default function Footer() {
 
           <div>
             <h4 className="font-semibold text-[#4a3730] mb-4">Quick Links</h4>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-4 gap-y-2">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-2">
               {[
                 { label: 'Home', href: '/' },
-                { label: 'About', href: '/about' },
+                { label: 'About Us', href: '/about' },
                 { label: 'Contact', href: '/contact' },
                 { label: 'FAQ', href: '/faq' },
                 { label: 'Shop', href: '/shop' },
                 { label: 'Reviews', href: '/reviews' },
-                { label: 'Refund Policy', href: '/returns' },
+                { label: 'Returns & Refunds', href: '/returns' },
                 { label: 'Wishlist', href: '/wishlist' },
               ].map((link) => (
                 <Link
