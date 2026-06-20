@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { requireAdmin } from '@/lib/auth';
-import { supabase } from '@/lib/db';
+import { supabaseAdmin } from '@/lib/supabase';
 
 export async function GET(request: NextRequest) {
   try {
@@ -11,10 +11,10 @@ export async function GET(request: NextRequest) {
     const reviewsSince = searchParams.get('reviewsSince') || '';
 
     const [ordersRes, settingsRes, reviewsRes, wishlistRes] = await Promise.all([
-      supabase.from('orders').select('status, createdAt'),
-      supabase.from('settings').select('key'),
-      supabase.from('reviews').select('id, createdAt'),
-      supabase.from('wishlist_items').select('id, createdAt'),
+      supabaseAdmin.from('orders').select('status, createdAt'),
+      supabaseAdmin.from('settings').select('key'),
+      supabaseAdmin.from('reviews').select('id, createdAt'),
+      supabaseAdmin.from('wishlist_items').select('id, createdAt'),
     ]);
 
     let pendingOrders = (ordersRes.data || []).filter((o: any) => o.status === 'pending').length;
