@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Save, Clock, Globe, Camera, Music2, ToggleLeft } from 'lucide-react'
+import { Save, Clock, Globe, Camera, Music2, ToggleLeft, Truck } from 'lucide-react'
 
 export default function AdminSettings() {
   const [settings, setSettings] = useState<any[]>([])
@@ -10,6 +10,8 @@ export default function AdminSettings() {
   const [whatsapp, setWhatsapp] = useState('')
   const [email, setEmail] = useState('')
   const [address, setAddress] = useState('')
+  const [deliveryCharge, setDeliveryCharge] = useState('0')
+  const [freeShippingMin, setFreeShippingMin] = useState('0')
   const [facebookUrl, setFacebookUrl] = useState('')
   const [instagramUrl, setInstagramUrl] = useState('')
   const [tiktokUrl, setTiktokUrl] = useState('')
@@ -27,6 +29,8 @@ export default function AdminSettings() {
         setWhatsapp(getVal('whatsapp_number'))
         setEmail(getVal('email'))
         setAddress(getVal('address'))
+        setDeliveryCharge(getVal('delivery_charge') || '0')
+        setFreeShippingMin(getVal('free_shipping_min') || '0')
         setFacebookUrl(getVal('facebook_url'))
         setInstagramUrl(getVal('instagram_url'))
         setTiktokUrl(getVal('tiktok_url'))
@@ -49,6 +53,8 @@ export default function AdminSettings() {
     await saveSetting('whatsapp_number', whatsapp)
     await saveSetting('email', email)
     await saveSetting('address', address)
+    await saveSetting('delivery_charge', deliveryCharge)
+    await saveSetting('free_shipping_min', freeShippingMin)
     await saveSetting('facebook_url', facebookUrl)
     await saveSetting('instagram_url', instagramUrl)
     await saveSetting('tiktok_url', tiktokUrl)
@@ -137,6 +143,38 @@ export default function AdminSettings() {
             onChange={(e) => setAddress(e.target.value)}
             className="w-full px-4 py-2.5 rounded-lg border border-[#f0e6d8] text-sm focus:outline-none focus:ring-2 focus:ring-[#d48e66]/30"
           />
+        </div>
+
+        <hr className="border-[#f0e6d8]" />
+
+        {/* Delivery Settings */}
+        <div>
+          <h3 className="flex items-center gap-2 text-sm font-semibold text-[#4a3730] mb-3">
+            <Truck size={16} className="text-[#d48e66]" />
+            Delivery Settings
+          </h3>
+          <div className="space-y-3">
+            <div>
+              <label className="block text-xs font-medium text-[#6a5a4e] mb-1">Delivery Charge (Rs)</label>
+              <p className="text-xs text-[#8a7a6e] mb-2">Set to 0 for free delivery.</p>
+              <input
+                type="number"
+                value={deliveryCharge}
+                onChange={(e) => setDeliveryCharge(e.target.value)}
+                className="w-full px-4 py-2.5 rounded-lg border border-[#f0e6d8] text-sm focus:outline-none focus:ring-2 focus:ring-[#d48e66]/30"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-[#6a5a4e] mb-1">Free Shipping Minimum (Rs)</label>
+              <p className="text-xs text-[#8a7a6e] mb-2">Orders above this amount get free delivery. Set to 0 to disable.</p>
+              <input
+                type="number"
+                value={freeShippingMin}
+                onChange={(e) => setFreeShippingMin(e.target.value)}
+                className="w-full px-4 py-2.5 rounded-lg border border-[#f0e6d8] text-sm focus:outline-none focus:ring-2 focus:ring-[#d48e66]/30"
+              />
+            </div>
+          </div>
         </div>
 
         <hr className="border-[#f0e6d8]" />
