@@ -10,10 +10,11 @@ export async function GET(request: NextRequest) {
     const ordersSince = searchParams.get('ordersSince') || '';
     const reviewsSince = searchParams.get('reviewsSince') || '';
 
-    const [ordersRes, settingsRes, reviewsRes] = await Promise.all([
+    const [ordersRes, settingsRes, reviewsRes, wishlistRes] = await Promise.all([
       supabase.from('orders').select('status, createdAt'),
       supabase.from('settings').select('key'),
       supabase.from('reviews').select('id, createdAt'),
+      supabase.from('wishlist_items').select('id, createdAt'),
     ]);
 
     let pendingOrders = (ordersRes.data || []).filter((o: any) => o.status === 'pending').length;
@@ -30,7 +31,9 @@ export async function GET(request: NextRequest) {
       reviews = (reviewsRes.data || []).filter((r: any) => r.createdAt > reviewsSince).length;
     }
 
-    return NextResponse.json({ pendingOrders, messages, reviews });
+    const wishlist = (wishlistRes.data || []).length;
+
+    return NextResponse.json({ pendingOrders, messages, reviews, wishlist });
   } catch (error) {
     if (error instanceof Error && error.message === 'Unauthorized') {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });

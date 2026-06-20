@@ -79,5 +79,14 @@ CREATE TABLE admin (
   password TEXT NOT NULL DEFAULT ''
 );
 
+CREATE TABLE wishlist_items (
+  id TEXT PRIMARY KEY,
+  "productId" TEXT NOT NULL DEFAULT '',
+  name TEXT NOT NULL DEFAULT '',
+  price NUMERIC NOT NULL DEFAULT 0,
+  image TEXT NOT NULL DEFAULT '',
+  "createdAt" TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
 INSERT INTO admin (username, password) VALUES ('admin', '$2b$10$qzzTewx/M8o557kD6ZXO.uuWJGLmtDGQznUEDHZ8Z/30rth8jYvxq')
 ON CONFLICT (username) DO NOTHING;

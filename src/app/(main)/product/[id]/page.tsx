@@ -63,6 +63,16 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
           price: product.salePrice || product.price,
           image: product.images?.[0] || '',
         })
+        fetch('/api/wishlist', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            productId: id,
+            name: product.name,
+            price: product.salePrice || product.price,
+            image: product.images?.[0] || '',
+          }),
+        }).catch(() => {})
       }
       localStorage.setItem('wishlist', JSON.stringify(wishlist))
       setInWishlist(!inWishlist)

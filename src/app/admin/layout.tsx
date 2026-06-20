@@ -3,12 +3,13 @@
 import { useRouter, usePathname } from 'next/navigation'
 import { useEffect, useState, useCallback } from 'react'
 import Link from 'next/link'
-import { LayoutDashboard, Package, Tags, ShoppingBag, Settings, DollarSign, FileText, ImageIcon, Star, LogOut, Menu, X, MessageSquare } from 'lucide-react'
+import { LayoutDashboard, Package, Tags, ShoppingBag, Settings, DollarSign, FileText, ImageIcon, Star, LogOut, Menu, X, MessageSquare, Heart as HeartIcon } from 'lucide-react'
 
 const navLinks: { href: string; label: string; icon: any; badge?: keyof NotifCounts }[] = [
   { href: '/admin/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/admin/products', label: 'Products', icon: Package },
   { href: '/admin/categories', label: 'Categories', icon: Tags },
+  { href: '/admin/wishlist', label: 'Wishlist', icon: HeartIcon },
   { href: '/admin/banners', label: 'Banners', icon: ImageIcon },
   { href: '/admin/reviews', label: 'Reviews', icon: Star, badge: 'reviews' },
   { href: '/admin/orders', label: 'Orders', icon: ShoppingBag, badge: 'pendingOrders' },
