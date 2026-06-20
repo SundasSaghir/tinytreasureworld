@@ -5,24 +5,31 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { LayoutDashboard, Package, Tags, ShoppingBag, Settings, DollarSign, FileText, ImageIcon, Star, LogOut, Menu, X, MessageSquare } from 'lucide-react'
 
-const navLinks = [
+const navLinks: { href: string; label: string; icon: any; badge?: keyof NotifCounts }[] = [
   { href: '/admin/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/admin/products', label: 'Products', icon: Package },
   { href: '/admin/categories', label: 'Categories', icon: Tags },
   { href: '/admin/banners', label: 'Banners', icon: ImageIcon },
-  { href: '/admin/reviews', label: 'Reviews', icon: Star },
-  { href: '/admin/orders', label: 'Orders', icon: ShoppingBag },
-  { href: '/admin/messages', label: 'Messages', icon: MessageSquare },
+  { href: '/admin/reviews', label: 'Reviews', icon: Star, badge: 'reviews' },
+  { href: '/admin/orders', label: 'Orders', icon: ShoppingBag, badge: 'pendingOrders' },
+  { href: '/admin/messages', label: 'Messages', icon: MessageSquare, badge: 'messages' },
   { href: '/admin/income', label: 'Income', icon: DollarSign },
   { href: '/admin/invoices', label: 'Invoices', icon: FileText },
   { href: '/admin/settings', label: 'Settings', icon: Settings },
 ]
+
+interface NotifCounts {
+  pendingOrders: number
+  messages: number
+  reviews: number
+}
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter()
   const pathname = usePathname()
   const [checked, setChecked] = useState(false)
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [notifs, setNotifs] = useState<NotifCounts>({ pendingOrders: 0, messages: 0, reviews: 0 })
 
   useEffect(() => {
     async function checkAuth() {
@@ -40,6 +47,19 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     }
     checkAuth()
   }, [router])
+
+  useEffect(() => {
+    if (!checked) return
+    async function fetchNotifs() {
+      try {
+        const res = await fetch('/api/admin/notifications')
+        if (res.ok) setNotifs(await res.json())
+      } catch {}
+    }
+    fetchNotifs()
+    const interval = setInterval(fetchNotifs, 30000)
+    return () => clearInterval(interval)
+  }, [checked])
 
   useEffect(() => {
     setSidebarOpen(false)
@@ -122,7 +142,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 }`}>
                   <Icon size={14} />
                 </div>
-                <span>{link.label}</span>
+                <span className="flex-1">{link.label}</span>
+                {link.badge && notifs[link.badge] > 0 && (
+                  <span className="bg-red-500 text-white text-[10px] font-bold min-w-[18px] h-[18px] flex items-center justify-center rounded-full px-1">
+                    {notifs[link.badge]}
+                  </span>
+                )}
               </Link>
             )
           })}
