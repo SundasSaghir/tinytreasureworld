@@ -22,6 +22,21 @@ export default function CheckoutPage() {
   const [reviewForm, setReviewForm] = useState({ name: '', rating: 5, comment: '' });
   const [reviewSubmitted, setReviewSubmitted] = useState(false);
   const [reviewSaving, setReviewSaving] = useState(false);
+  const [freeShippingMin, setFreeShippingMin] = useState(0);
+  const [deliveryChargeRate, setDeliveryChargeRate] = useState(0);
+  const [currency, setCurrency] = useState('Rs');
+
+  useEffect(() => {
+    fetch('/api/settings')
+      .then(r => r.json())
+      .then((data: any[]) => {
+        const getVal = (key: string) => data.find((s: any) => s.key === key)?.value || ''
+        setFreeShippingMin(Number(getVal('free_shipping_min')) || 0)
+        setDeliveryChargeRate(Number(getVal('delivery_charge')) || 0)
+        setCurrency(getVal('currency') || 'Rs')
+      })
+      .catch(() => {})
+  }, [])
 
   const [form, setForm] = useState({
     name: '',
@@ -50,8 +65,8 @@ export default function CheckoutPage() {
   };
 
   const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  const deliveryCharge = subtotal >= 2000 ? 0 : 200;
-  const total = subtotal + deliveryCharge;
+  const charge = freeShippingMin > 0 && subtotal >= freeShippingMin ? 0 : deliveryChargeRate;
+  const total = subtotal + charge;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -245,16 +260,16 @@ ${itemsText}
                 <div className="flex justify-between text-[#6a5a4e]">
                   <span>Delivery</span>
                   <span>
-                    {deliveryCharge === 0 ? (
+                    {charge === 0 ? (
                       <span className="text-green-500 font-medium">Free</span>
                     ) : (
-                      `Rs ${deliveryCharge}`
+                      `Rs ${charge}`
                     )}
                   </span>
                 </div>
-                {subtotal < 2000 && subtotal > 0 && (
+                {deliveryChargeRate > 0 && freeShippingMin > 0 && subtotal < freeShippingMin && subtotal > 0 && (
                   <p className="text-xs text-[#8a7a6e]">
-                    Add Rs {(2000 - subtotal).toLocaleString()} more for free delivery
+                    Add Rs {(freeShippingMin - subtotal).toLocaleString()} more for free delivery
                   </p>
                 )}
                 <hr className="border-[#e0d4c4]" />

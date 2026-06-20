@@ -16,6 +16,9 @@ interface CartItem {
 export default function CartPage() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [freeShippingMin, setFreeShippingMin] = useState(0);
+  const [deliveryCharge, setDeliveryCharge] = useState(0);
+  const [currency, setCurrency] = useState('Rs');
 
   useEffect(() => {
     try {
@@ -24,7 +27,16 @@ export default function CartPage() {
     } catch {
       setCartItems([]);
     }
-    setIsLoaded(true);
+    fetch('/api/settings')
+      .then(r => r.json())
+      .then((data: any[]) => {
+        const getVal = (key: string) => data.find((s: any) => s.key === key)?.value || ''
+        setFreeShippingMin(Number(getVal('free_shipping_min')) || 0)
+        setDeliveryCharge(Number(getVal('delivery_charge')) || 0)
+        setCurrency(getVal('currency') || 'Rs')
+      })
+      .catch(() => {})
+      .finally(() => setIsLoaded(true))
   }, []);
 
   const updateCart = (items: CartItem[]) => {
@@ -48,8 +60,8 @@ export default function CartPage() {
   };
 
   const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  const deliveryCharge = subtotal >= 2000 ? 0 : 200;
-  const total = subtotal + deliveryCharge;
+  const charge = freeShippingMin > 0 && subtotal >= freeShippingMin ? 0 : deliveryCharge;
+  const total = subtotal + charge;
 
   if (!isLoaded) {
     return (
@@ -157,16 +169,16 @@ export default function CartPage() {
             <div className="flex justify-between text-[#6a5a4e]">
               <span>Delivery Charge</span>
               <span>
-                {deliveryCharge === 0 ? (
+                {charge === 0 ? (
                   <span className="text-green-500 font-medium">Free</span>
                 ) : (
-                  `Rs ${deliveryCharge}`
+                  `Rs ${charge}`
                 )}
               </span>
             </div>
-            {subtotal < 2000 && subtotal > 0 && (
+            {deliveryCharge > 0 && freeShippingMin > 0 && subtotal < freeShippingMin && subtotal > 0 && (
               <p className="text-xs text-[#8a7a6e]">
-                Add Rs {(2000 - subtotal).toLocaleString()} more for free delivery
+                Add Rs {(freeShippingMin - subtotal).toLocaleString()} more for free delivery
               </p>
             )}
             <hr className="border-[#e0d4c4]" />
