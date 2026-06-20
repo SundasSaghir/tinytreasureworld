@@ -159,12 +159,14 @@ export default function Footer() {
                   {whatsapp ? `+${whatsapp}` : '+92 300 1234567'}
                 </a>
               </li>
-              <li>
-                <span className="font-medium text-[#4a3730]">Email:</span>{' '}
-                <a href={`mailto:${email || 'info@tinytreasureworld.com'}`} className="hover:text-[#d4869c] transition-colors">
-                  {email || 'info@tinytreasureworld.com'}
-                </a>
-              </li>
+              {email && (
+                <li>
+                  <span className="font-medium text-[#4a3730]">Email:</span>{' '}
+                  <a href={`mailto:${email}`} className="hover:text-[#d4869c] transition-colors">
+                    {email}
+                  </a>
+                </li>
+              )}
             </ul>
           </div>
 

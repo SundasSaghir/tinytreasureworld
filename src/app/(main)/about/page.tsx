@@ -32,9 +32,7 @@ export default function AboutPage() {
         </div>
         <div className="bg-white rounded-xl border border-[#f0e6d8] p-6 sm:p-8">
           {data.content ? (
-            data.content.split('\n').map((line, i) => (
-              <p key={i} className="text-[#6a5a4e] text-sm leading-relaxed mb-3 last:mb-0">{line}</p>
-            ))
+            <div className="text-[#6a5a4e] text-sm leading-relaxed space-y-3 [&_h1]:text-2xl [&_h1]:font-bold [&_h1]:text-[#4a3730] [&_h2]:text-xl [&_h2]:font-bold [&_h2]:text-[#4a3730] [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:text-[#4a3730] [&_strong]:font-bold [&_strong]:text-[#4a3730] [&_em]:italic" dangerouslySetInnerHTML={{ __html: data.content }} />
           ) : (
             <p className="text-[#8a7a6e] text-sm text-center">Content coming soon.</p>
           )}

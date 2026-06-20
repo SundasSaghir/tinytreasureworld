@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Save, Clock, Globe, Camera, Music2, Palette, ToggleLeft } from 'lucide-react'
+import { Save, Clock, Globe, Camera, Music2, ToggleLeft } from 'lucide-react'
 
 export default function AdminSettings() {
   const [settings, setSettings] = useState<any[]>([])
@@ -13,7 +13,6 @@ export default function AdminSettings() {
   const [facebookUrl, setFacebookUrl] = useState('')
   const [instagramUrl, setInstagramUrl] = useState('')
   const [tiktokUrl, setTiktokUrl] = useState('')
-  const [pinterestUrl, setPinterestUrl] = useState('')
   const [saving, setSaving] = useState(false)
   const [msg, setMsg] = useState('')
 
@@ -31,7 +30,6 @@ export default function AdminSettings() {
         setFacebookUrl(getVal('facebook_url'))
         setInstagramUrl(getVal('instagram_url'))
         setTiktokUrl(getVal('tiktok_url'))
-        setPinterestUrl(getVal('pinterest_url'))
       })
   }, [])
 
@@ -54,7 +52,6 @@ export default function AdminSettings() {
     await saveSetting('facebook_url', facebookUrl)
     await saveSetting('instagram_url', instagramUrl)
     await saveSetting('tiktok_url', tiktokUrl)
-    await saveSetting('pinterest_url', pinterestUrl)
     setSaving(false)
     setMsg('Settings saved!')
     setTimeout(() => setMsg(''), 3000)
@@ -182,18 +179,6 @@ export default function AdminSettings() {
                 type="url"
                 value={tiktokUrl}
                 onChange={(e) => setTiktokUrl(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-lg border border-[#f0e6d8] text-sm focus:outline-none focus:ring-2 focus:ring-[#d48e66]/30"
-              />
-            </div>
-            <div>
-              <label className="flex items-center gap-2 text-xs font-medium text-[#6a5a4e] mb-1">
-                <Palette size={14} className="text-[#E60023]" />
-                Pinterest URL
-              </label>
-              <input
-                type="url"
-                value={pinterestUrl}
-                onChange={(e) => setPinterestUrl(e.target.value)}
                 className="w-full px-4 py-2.5 rounded-lg border border-[#f0e6d8] text-sm focus:outline-none focus:ring-2 focus:ring-[#d48e66]/30"
               />
             </div>

@@ -155,7 +155,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
           <div className="flex items-center gap-2">
             {inStock ? (
               product.stock <= 5 ? (
-                <span className="text-sm text-[#d4a574] font-medium">Only {product.stock} left in stock</span>
+                <span className="text-sm text-red-500 font-semibold">Only {product.stock} left in stock</span>
               ) : (
                 <span className="text-sm text-[#d48e66] font-medium">In Stock</span>
               )
@@ -199,8 +199,9 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
               { key: 'facebook', label: 'Facebook', color: 'hover:bg-[#1877F2]' },
             ].map((s) => (
               <button key={s.key} onClick={() => shareProduct(s.key)}
-                className={`p-2 rounded-full bg-[#f5ede0] text-[#6a5a4e] ${s.color} hover:text-white transition-all`}>
-                <Share2 size={16} />
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#f5ede0] text-[#6a5a4e] hover:text-white transition-all text-xs font-medium">
+                <Share2 size={14} />
+                {s.label}
               </button>
             ))}
           </div>
