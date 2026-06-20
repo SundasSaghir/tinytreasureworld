@@ -7,22 +7,26 @@ import { ShoppingCart, Search, Menu, X, Heart } from 'lucide-react';
 
 export default function Header() {
   const [cartCount, setCartCount] = useState(0);
+  const [wishlistCount, setWishlistCount] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    const updateCartCount = () => {
+    const updateCounts = () => {
       try {
         const cart = JSON.parse(localStorage.getItem('cart') || '[]');
         setCartCount(Array.isArray(cart) ? cart.length : 0);
+        const wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+        setWishlistCount(Array.isArray(wishlist) ? wishlist.length : 0);
       } catch {
         setCartCount(0);
+        setWishlistCount(0);
       }
     };
-    updateCartCount();
-    window.addEventListener('storage', updateCartCount);
-    return () => window.removeEventListener('storage', updateCartCount);
+    updateCounts();
+    window.addEventListener('storage', updateCounts);
+    return () => window.removeEventListener('storage', updateCounts);
   }, []);
 
   const navLinks = [
@@ -72,8 +76,13 @@ export default function Header() {
           </nav>
 
           <div className="flex items-center gap-1">
-            <Link href="/wishlist" className="p-2 text-[#5a4a3e] hover:text-[#d4869c] transition-colors" aria-label="Wishlist">
+            <Link href="/wishlist" className="relative p-2 text-[#5a4a3e] hover:text-[#d4869c] transition-colors" aria-label="Wishlist">
               <Heart size={20} />
+              {wishlistCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-red-400 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                  {wishlistCount > 99 ? '99+' : wishlistCount}
+                </span>
+              )}
             </Link>
             <button
               onClick={() => setIsSearchOpen(!isSearchOpen)}

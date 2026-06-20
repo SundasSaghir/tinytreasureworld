@@ -1,9 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Trash2, ShoppingBag, ArrowLeft, Minus, Plus } from 'lucide-react';
+import { Trash2, ShoppingBag, ArrowLeft, Minus, Plus, AlertCircle } from 'lucide-react';
 
 interface CartItem {
   productId: string;
@@ -19,6 +19,8 @@ export default function CartPage() {
   const [freeShippingMin, setFreeShippingMin] = useState(0);
   const [deliveryCharge, setDeliveryCharge] = useState(0);
   const [currency, setCurrency] = useState('Rs');
+  const [stockMap, setStockMap] = useState<Record<string, number>>({});
+  const [stockMsg, setStockMsg] = useState<string | null>(null);
 
   useEffect(() => {
     try {
@@ -36,6 +38,14 @@ export default function CartPage() {
         setCurrency(getVal('currency') || 'Rs')
       })
       .catch(() => {})
+    fetch('/api/products')
+      .then(r => r.json())
+      .then((products: any[]) => {
+        const map: Record<string, number> = {}
+        products.forEach((p: any) => { map[p.id] = p.stock })
+        setStockMap(map)
+      })
+      .catch(() => {})
       .finally(() => setIsLoaded(true))
   }, []);
 
@@ -46,9 +56,19 @@ export default function CartPage() {
   };
 
   const updateQuantity = (productId: string, delta: number) => {
+    const item = cartItems.find(i => i.productId === productId)
+    if (!item) return
+    const stock = stockMap[productId] || 0
+    const newQty = item.quantity + delta
+    if (newQty > stock) {
+      setStockMsg(`Sorry, only ${stock} available for "${item.name}"`)
+      setTimeout(() => setStockMsg(null), 4000)
+      return
+    }
+    setStockMsg(null)
     const updated = cartItems.map((item) =>
       item.productId === productId
-        ? { ...item, quantity: Math.max(1, item.quantity + delta) }
+        ? { ...item, quantity: Math.max(1, newQty) }
         : item
     );
     updateCart(updated);
@@ -93,6 +113,12 @@ export default function CartPage() {
       <h1 className="text-2xl sm:text-3xl font-bold text-[#4a3730] mb-8">Shopping Cart</h1>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {stockMsg && (
+          <div className="lg:col-span-3 flex items-center gap-2 px-4 py-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-700">
+            <AlertCircle size={16} />
+            {stockMsg}
+          </div>
+        )}
         <div className="lg:col-span-2 space-y-4">
           {cartItems.map((item) => (
             <div

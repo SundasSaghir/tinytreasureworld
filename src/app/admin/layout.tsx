@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter, usePathname } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import Link from 'next/link'
 import { LayoutDashboard, Package, Tags, ShoppingBag, Settings, DollarSign, FileText, ImageIcon, Star, LogOut, Menu, X, MessageSquare } from 'lucide-react'
 
@@ -23,6 +23,8 @@ interface NotifCounts {
   messages: number
   reviews: number
 }
+
+const CLEARED_KEY = 'admin_notif_cleared'
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter()
@@ -48,18 +50,32 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     checkAuth()
   }, [router])
 
+  const fetchNotifs = useCallback(async () => {
+    try {
+      const cleared: Record<string, string> = JSON.parse(localStorage.getItem(CLEARED_KEY) || '{}')
+      const params = new URLSearchParams()
+      if (cleared.orders) params.set('ordersSince', cleared.orders)
+      if (cleared.reviews) params.set('reviewsSince', cleared.reviews)
+      const res = await fetch('/api/admin/notifications?' + params.toString())
+      if (res.ok) setNotifs(await res.json())
+    } catch {}
+  }, [])
+
   useEffect(() => {
     if (!checked) return
-    async function fetchNotifs() {
-      try {
-        const res = await fetch('/api/admin/notifications')
-        if (res.ok) setNotifs(await res.json())
-      } catch {}
-    }
     fetchNotifs()
     const interval = setInterval(fetchNotifs, 30000)
     return () => clearInterval(interval)
-  }, [checked])
+  }, [checked, fetchNotifs])
+
+  function clearBadge(key: string) {
+    try {
+      const cleared: Record<string, string> = JSON.parse(localStorage.getItem(CLEARED_KEY) || '{}')
+      cleared[key] = new Date().toISOString()
+      localStorage.setItem(CLEARED_KEY, JSON.stringify(cleared))
+    } catch {}
+    setNotifs((prev) => ({ ...prev, [key]: 0 }))
+  }
 
   useEffect(() => {
     setSidebarOpen(false)
@@ -131,11 +147,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               <Link
                 key={link.href}
                 href={link.href}
-                className={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-medium transition-all ${
-                  active
-                    ? 'bg-[#f5ede0] text-[#d4869c] shadow-sm'
-                    : 'text-[#6a5a4e] hover:bg-[#f5ede0] hover:text-[#4a3730]'
-                }`}
+                onClick={() => {
+                  if (link.badge) clearBadge(link.badge)
+                  setSidebarOpen(false)
+                }}
+                className={'flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-medium transition-all ' + (active ? 'bg-[#f5ede0] text-[#d4869c] shadow-sm' : 'text-[#6a5a4e] hover:bg-[#f5ede0] hover:text-[#4a3730]')}
               >
                 <div className={`w-7 h-7 rounded-md flex items-center justify-center ${
                   active ? 'bg-[#d4869c] text-white shadow-sm' : 'bg-[#f0e6d8] text-[#8a7a6e]'
