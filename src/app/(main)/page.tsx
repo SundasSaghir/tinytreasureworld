@@ -249,11 +249,13 @@ function ProductCard({ product }: { product: any }) {
         {product.salePrice && (
           <span className="absolute top-2 left-2 bg-[#d48e66] text-white text-xs font-bold px-2 py-0.5 rounded-full">SALE</span>
         )}
-        {product.stock <= 5 && product.stock > 0 && (
+        {product.stock <= 0 ? (
+          <span className="absolute top-2 right-2 bg-gray-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">Sold Out</span>
+        ) : product.stock <= 5 ? (
           <span className="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">
             Only {product.stock} left
           </span>
-        )}
+        ) : null}
         <button
           onClick={addToCart}
           className="absolute bottom-2 right-2 p-2 bg-white/90 backdrop-blur-sm rounded-full shadow-md hover:bg-[#d48e66] hover:text-white transition-all opacity-0 group-hover:opacity-100"

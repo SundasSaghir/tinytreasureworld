@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { Package, ShoppingBag, AlertTriangle, XCircle, ArrowRight, DollarSign, TrendingUp, Calendar, BarChart3 } from 'lucide-react'
+import { Package, ShoppingBag, AlertTriangle, XCircle, ArrowRight, DollarSign, Calendar, BarChart3, Ban } from 'lucide-react'
 
 interface Stats {
   totalProducts: number
@@ -15,6 +15,7 @@ interface Stats {
   yearlyIncome: number
   todayOrders: number
   monthlyOrders: number
+  cancelledOrders: number
 }
 
 interface OrderItem {
@@ -75,6 +76,7 @@ export default function AdminDashboardPage() {
     { label: 'Low Stock', value: stats?.lowStock ?? 0, icon: AlertTriangle, color: 'bg-yellow-500' },
     { label: 'Out of Stock', value: stats?.outOfStock ?? 0, icon: XCircle, color: 'bg-red-500' },
     { label: 'Total Products', value: stats?.totalProducts ?? 0, icon: Package, color: 'bg-blue-500' },
+    { label: 'Cancelled Orders', value: stats?.cancelledOrders ?? 0, icon: Ban, color: 'bg-red-500' },
   ]
 
   return (

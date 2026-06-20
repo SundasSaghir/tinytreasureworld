@@ -40,6 +40,7 @@ export async function GET() {
     const monthlyIncome = incomeSince(monthStart);
     const yearlyIncome = incomeSince(yearStart);
     const totalOrders = orders.length;
+    const cancelledOrders = orders.filter((o: any) => o.status === 'cancelled').length;
 
     return NextResponse.json({
       totalProducts,
@@ -52,6 +53,7 @@ export async function GET() {
       yearlyIncome,
       todayOrders,
       monthlyOrders,
+      cancelledOrders,
     });
   } catch (error) {
     if (error instanceof Error && error.message === 'Unauthorized') {

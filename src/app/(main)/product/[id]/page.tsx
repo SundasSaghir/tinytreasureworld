@@ -160,7 +160,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
                 <span className="text-sm text-[#d48e66] font-medium">In Stock</span>
               )
             ) : (
-              <span className="text-sm text-red-500 font-medium">Out of Stock</span>
+              <span className="text-sm text-gray-500 font-semibold">Sold Out</span>
             )}
           </div>
 

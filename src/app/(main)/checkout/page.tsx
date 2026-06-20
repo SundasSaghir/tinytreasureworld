@@ -73,7 +73,7 @@ export default function CheckoutPage() {
     setSubmitting(true);
 
     try {
-      await fetch('/api/orders', {
+      const res = await fetch('/api/orders', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -90,6 +90,13 @@ export default function CheckoutPage() {
           })),
         }),
       });
+
+      if (!res.ok) {
+        const err = await res.json();
+        alert(err.error || 'Something went wrong. Please try again.');
+        setSubmitting(false);
+        return;
+      }
 
       let whatsappNumber = '923001234567';
       try {

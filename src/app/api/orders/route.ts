@@ -47,9 +47,15 @@ export async function POST(request: NextRequest) {
     for (const item of items) {
       total += item.price * item.quantity;
       const { data: product } = await supabase.from('products').select('stock').eq('id', item.productId).single();
-      if (product) {
-        await supabase.from('products').update({ stock: product.stock - item.quantity }).eq('id', item.productId);
+      if (!product) {
+        return NextResponse.json({ error: `Product "${item.name}" not found` }, { status: 400 });
       }
+      if (product.stock < item.quantity) {
+        return NextResponse.json({
+          error: `Only ${product.stock} left in stock for "${item.name}"`
+        }, { status: 400 });
+      }
+      await supabase.from('products').update({ stock: product.stock - item.quantity }).eq('id', item.productId);
     }
 
     const order = {
