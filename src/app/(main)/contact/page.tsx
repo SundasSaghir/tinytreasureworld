@@ -157,15 +157,17 @@ export default function ContactPage() {
               </div>
             </div>
 
-            <div className="flex items-start gap-3">
-              <Mail size={20} className="text-[#d48e66] mt-0.5 flex-shrink-0" />
-              <div>
-                <p className="font-medium text-[#4a3730]">Email</p>
-                <a href={`mailto:${siteEmail || 'info@tinytreasureworld.com'}`} className="text-sm text-[#d48e66] hover:underline">
-                  {siteEmail || 'info@tinytreasureworld.com'}
-                </a>
+            {siteEmail && (
+              <div className="flex items-start gap-3">
+                <Mail size={20} className="text-[#d48e66] mt-0.5 flex-shrink-0" />
+                <div>
+                  <p className="font-medium text-[#4a3730]">Email</p>
+                  <a href={`mailto:${siteEmail}`} className="text-sm text-[#d48e66] hover:underline">
+                    {siteEmail}
+                  </a>
+                </div>
               </div>
-            </div>
+            )}
 
             <div className="flex items-start gap-3">
               <MessageCircle size={20} className="text-[#d48e66] mt-0.5 flex-shrink-0" />
