@@ -21,6 +21,19 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
     await requireAdmin();
     const { id } = await params;
     const { status } = await request.json();
+
+    if (status === 'cancelled') {
+      const { data: order } = await supabase.from('orders').select('items').eq('id', id).single();
+      if (order?.items) {
+        for (const item of order.items) {
+          const { data: product } = await supabase.from('products').select('stock').eq('id', item.productId).single();
+          if (product) {
+            await supabase.from('products').update({ stock: product.stock + item.quantity }).eq('id', item.productId);
+          }
+        }
+      }
+    }
+
     const { data, error } = await supabase.from('orders').update({ status }).eq('id', id).select().single();
     if (error) {
       if (error.code === 'PGRST116') {
