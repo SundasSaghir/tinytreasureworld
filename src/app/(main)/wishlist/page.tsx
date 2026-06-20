@@ -15,12 +15,30 @@ export default function WishlistPage() {
   const [items, setItems] = useState<WishlistItem[]>([])
 
   useEffect(() => {
-    try {
-      const wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]')
-      setItems(Array.isArray(wishlist) ? wishlist : [])
-    } catch {
-      setItems([])
+    async function load() {
+      try {
+        const wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]')
+        const local = Array.isArray(wishlist) ? wishlist : []
+
+        // Sync with server — remove items deleted by admin
+        const res = await fetch('/api/wishlist')
+        if (res.ok) {
+          const serverItems = await res.json()
+          const serverIds = new Set(serverItems.map((s: any) => s.productId))
+          const filtered = local.filter((item: WishlistItem) => serverIds.has(item.productId))
+          if (filtered.length !== local.length) {
+            localStorage.setItem('wishlist', JSON.stringify(filtered))
+            window.dispatchEvent(new Event('storage'))
+          }
+          setItems(filtered)
+        } else {
+          setItems(local)
+        }
+      } catch {
+        setItems([])
+      }
     }
+    load()
   }, [])
 
   function removeFromWishlist(productId: string) {
@@ -68,7 +86,7 @@ export default function WishlistPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {items.map((item) => (
               <div key={item.productId} className="bg-white rounded-xl border border-[#f0e6d8] p-4 hover:shadow-md transition-shadow">
-                <Link href={`/product/${item.productId}`}>
+                <Link href={'/product/' + item.productId}>
                   <div className="w-full h-40 bg-[#f5ede0] rounded-lg mb-3 flex items-center justify-center text-[#d48e66]/30 text-4xl overflow-hidden">
                     {item.image ? (
                       <img src={item.image} alt={item.name} className="w-full h-full object-cover" />

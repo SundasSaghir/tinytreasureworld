@@ -9,7 +9,7 @@ const navLinks: { href: string; label: string; icon: any; badge?: keyof NotifCou
   { href: '/admin/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/admin/products', label: 'Products', icon: Package },
   { href: '/admin/categories', label: 'Categories', icon: Tags },
-  { href: '/admin/wishlist', label: 'Wishlist', icon: HeartIcon },
+  { href: '/admin/wishlist', label: 'Wishlist', icon: HeartIcon, badge: 'wishlist' },
   { href: '/admin/banners', label: 'Banners', icon: ImageIcon },
   { href: '/admin/reviews', label: 'Reviews', icon: Star, badge: 'reviews' },
   { href: '/admin/orders', label: 'Orders', icon: ShoppingBag, badge: 'pendingOrders' },
@@ -23,6 +23,7 @@ interface NotifCounts {
   pendingOrders: number
   messages: number
   reviews: number
+  wishlist: number
 }
 
 const CLEARED_KEY = 'admin_notif_cleared'
@@ -32,7 +33,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const pathname = usePathname()
   const [checked, setChecked] = useState(false)
   const [sidebarOpen, setSidebarOpen] = useState(false)
-  const [notifs, setNotifs] = useState<NotifCounts>({ pendingOrders: 0, messages: 0, reviews: 0 })
+  const [notifs, setNotifs] = useState<NotifCounts>({ pendingOrders: 0, messages: 0, reviews: 0, wishlist: 0 })
 
   useEffect(() => {
     async function checkAuth() {
