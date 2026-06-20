@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { MapPin, Phone, Mail, MessageCircle, Send } from 'lucide-react';
+import { Phone, Mail, MessageCircle, Send } from 'lucide-react';
 
 export default function ContactPage() {
   const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' });
@@ -140,14 +140,6 @@ export default function ContactPage() {
             <h2 className="text-lg font-bold text-[#4a3730]">Get in Touch</h2>
 
             <div className="flex items-start gap-3">
-              <MapPin size={20} className="text-[#d48e66] mt-0.5 flex-shrink-0" />
-              <div>
-                <p className="font-medium text-[#4a3730]">Address</p>
-                <p className="text-sm text-[#6a5a4e]">{address || '123 Kids Lane, Suite 100, New York, NY 10001'}</p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-3">
               <Phone size={20} className="text-[#d48e66] mt-0.5 flex-shrink-0" />
               <div>
                 <p className="font-medium text-[#4a3730]">Phone</p>
@@ -182,13 +174,6 @@ export default function ContactPage() {
                   Chat with us
                 </a>
               </div>
-            </div>
-          </div>
-
-          <div className="bg-gradient-to-br from-[#f5ede0] to-[#f0d6de]/50 rounded-xl border border-[#e0d4c4] p-6 h-64 flex items-center justify-center">
-            <div className="text-center">
-              <MapPin size={32} className="mx-auto text-[#f0d6de] mb-2" />
-              <p className="text-[#8a7a6e] text-sm">Map will be displayed here</p>
             </div>
           </div>
 

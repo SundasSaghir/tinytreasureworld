@@ -42,7 +42,6 @@ export default function Footer() {
   const [tiktokUrl, setTiktokUrl] = useState('https://tiktok.com');
   const [whatsapp, setWhatsapp] = useState('');
   const [email, setEmail] = useState('');
-  const [address, setAddress] = useState('');
 
   useEffect(() => {
     fetch('/api/settings')
@@ -53,7 +52,6 @@ export default function Footer() {
         setInstagramUrl(getVal('instagram_url') || 'https://instagram.com')
         setTiktokUrl(getVal('tiktok_url') || 'https://tiktok.com')
         setEmail(getVal('email'))
-        setAddress(getVal('address'))
         let num = getVal('whatsapp_number').replace(/[^0-9]/g, '');
         if (num.startsWith('0')) num = '92' + num.slice(1);
         if (num && !num.startsWith('92')) num = '92' + num;
@@ -147,12 +145,6 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold text-[#4a3730] mb-4">Contact</h4>
             <ul className="space-y-3 text-sm text-[#6a5a4e]">
-              {address && (
-                <li>
-                  <span className="font-medium text-[#4a3730]">Address:</span>{' '}
-                  <span>{address}</span>
-                </li>
-              )}
               <li>
                 <span className="font-medium text-[#4a3730]">Phone:</span>{' '}
                 <a href={`tel:+${whatsapp}`} className="hover:text-[#d4869c] transition-colors">
