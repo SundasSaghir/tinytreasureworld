@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
 import { getDb } from '@/lib/db';
 import { verifyPassword, createToken } from '@/lib/auth';
 
@@ -19,8 +18,9 @@ export async function POST(request: NextRequest) {
     }
 
     const token = await createToken(username);
-    const cookieStore = await cookies();
-    cookieStore.set('admin_token', token, {
+
+    const response = NextResponse.json({ success: true, token });
+    response.cookies.set('admin_token', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
       maxAge: 60 * 60 * 24,
     });
 
-    return NextResponse.json({ success: true, token });
+    return response;
   } catch {
     return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
   }
