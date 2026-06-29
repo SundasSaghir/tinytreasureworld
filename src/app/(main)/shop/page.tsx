@@ -115,6 +115,14 @@ export default function ShopPage() {
   const [maxPrice, setMaxPrice] = useState('');
 
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const catSlug = params.get('category');
+    if (catSlug) {
+      setSelectedCategory(catSlug);
+    }
+  }, []);
+
+  useEffect(() => {
     async function fetchData() {
       try {
         const [prodRes, catRes] = await Promise.all([
@@ -138,7 +146,8 @@ export default function ShopPage() {
     let result = [...products];
 
     if (selectedCategory) {
-      result = result.filter((p) => p.category === selectedCategory);
+      const cat = categories.find((c) => c.slug === selectedCategory);
+      if (cat) result = result.filter((p) => p.category === cat.name);
     }
 
     if (searchText) {
@@ -168,7 +177,7 @@ export default function ShopPage() {
     }
 
     return result;
-  }, [products, selectedCategory, searchText, minPrice, maxPrice, sortBy]);
+  }, [products, selectedCategory, searchText, minPrice, maxPrice, sortBy, categories]);
 
   const clearFilters = () => {
     setSelectedCategory('');
